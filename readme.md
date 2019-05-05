@@ -3,7 +3,7 @@
 - Express : Main web framework
 - Express-validator : Data validation. When we make a post request to API and there's fields that need to be there but aren't, this helps.
 - Bcryptjs: For password encryption.
-- Config: For global variables
+- Config: For global variables (ex: default.json for mongodb)
 - Gravatar: For profile avatars
 - jsonwebtoken: We're using JWT and this helps with web tokens
 - Mongoose: MongoDB helper
@@ -27,6 +27,10 @@ npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose r
 ```bash
 npm i -D nodemon concurrently
 ```
+
+#Database
+
+Cluster hosted on www.mongodb.com .
 
 ## Usage
 
