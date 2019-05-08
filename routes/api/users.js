@@ -3,8 +3,9 @@ const router = express.Router();
 const gravatar = require('gravatar');
 const { check, validationResult } = require('express-validator/check');
 const bcrypt = require('bcryptjs');
-
+const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
+const config = require('config');
 
 // Used asnyc method await on items that return a promise instead of doing .then() etc...
 
@@ -53,8 +54,21 @@ router.post('/', [
       await user.save();
 
       // Return jsonwebtoken
+      const payload = { //create payload
+        user: {
+          id: user.id
+        }
+      }
 
-      res.send('User registered');
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     }
     catch (err) {
       console.error(err.message);
