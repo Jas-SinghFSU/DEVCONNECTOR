@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from "react";
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
 
-const Register = () => {
+const Register = props => {
   const [formData, setFormData] = useState({
     //formData are states, setFormData is used for doing setState
     name: "",
@@ -13,16 +15,16 @@ const Register = () => {
 
   const { name, email, password, password2 } = formData; //Instead of having to do formData.name, formData.email, etc.
 
-  const onChange = function (e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value }); //get from formdata the name: "value", email: "value", etc 
+  const onChange = function(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value }); //get from formdata the name: "value", email: "value", etc
   };
 
-  const onSubmit = async function (e) {
+  const onSubmit = async function(e) {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Passwords do not match");
+      props.setAlert("Passwords do not match", "danger");
     } else {
-      console.log('success');
+      console.log("success");
     }
   };
 
@@ -88,4 +90,8 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default connect(
+  //connect() is used for react-redux connect component
+  null,
+  { setAlert }
+)(Register);

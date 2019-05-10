@@ -8,11 +8,12 @@
 - jsonwebtoken: We're using JWT and this helps with web tokens
 - Mongoose: MongoDB helper
 - Request: Helps us make http requests
+- Uuid: Install in client. Generates a universal id for various uses
 
 ## Package Installation
 
 ```bash
-npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose request
+npm i express express-validator bcryptjs config gravatar jsonwebtoken mongoose request uuid
 ```
 
 # Dev Dependencies
@@ -32,7 +33,7 @@ Change directory to the client folder in the root directory. Then install depend
 
 ```bash
 cd client
-npm i axios react-router-dom redux react-redux redux-thunk redux-devtools-extension moment react-moment
+npm i axios react-router-dom redux react-redux redux-thunk redux-devtools-extension moment react-moment uuid
 ```
 
 # Software
@@ -79,7 +80,7 @@ Delete Files in client folder called:
 # Database
 
 Cluster hosted on www.mongodb.com .
- 
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
