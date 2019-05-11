@@ -1,4 +1,12 @@
-import { REGISTER_SUCCESS, REGISTER_FAIL } from "../actions/types";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT
+} from "../actions/types";
 
 const initialState = {
   token: localStorage.getItem("token"), //get the token from the local storage
@@ -11,15 +19,27 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case REGISTER_SUCCESS:
-      localStorage.setItem("token", payload.token);
+    case USER_LOADED: //if user is loaded after the api/users route, set isAuth to true, and pass in user data
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        user: payload
+      };
+
+    case REGISTER_SUCCESS: //if the registration is successful, put token in local storage, set isAuthenticated to true
+    case LOGIN_SUCCESS: //same as register success
+      localStorage.setItem("token", payload.token); //put token in local storage
       return {
         ...state,
         ...payload,
         isAuthenticated: true,
         loading: false
       };
-    case REGISTER_FAIL:
+    case REGISTER_FAIL: //if registration fails, remove token from local storage, set token to null, isAuth to false
+    case AUTH_ERROR: //does same thing as register fail
+    case LOGIN_FAIL:
+    case LOGOUT:
       localStorage.removeItem("token");
       return {
         ...state,

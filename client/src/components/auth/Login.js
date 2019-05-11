@@ -1,25 +1,31 @@
 import React, { Fragment, useState } from "react";
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/auth";
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    //formData are states, setFormData is used for doing setState 
+    //formData are states, setFormData is used for doing setState
     email: "",
     password: ""
   });
 
   const { email, password } = formData; //Instead of having to do formData.name, formData.email, etc.
 
-  const onChange = function (e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value }); //get from formdata the name: "value", email: "value", etc 
+  const onChange = function(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value }); //get from formdata the name: "value", email: "value", etc
   };
 
-  const onSubmit = async function (e) {
-    e.preventDefault(); 
-    console.log('success');
-
+  const onSubmit = async function(e) {
+    e.preventDefault();
+    login(email, password);
   };
+
+  //Redirect if login is successful
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Fragment>
@@ -27,7 +33,7 @@ const Login = () => {
       <p className="lead">
         <i className="fas fa-user" /> Sign In To Your Account
       </p>
-      <form className="form" onSubmit={e => onSubmit(e)}> 
+      <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <input
             type="email"
@@ -36,7 +42,7 @@ const Login = () => {
             value={email}
             onChange={e => onChange(e)}
             required
-          /> 
+          />
         </div>
         <div className="form-group">
           <input
@@ -46,9 +52,9 @@ const Login = () => {
             value={password}
             onChange={e => onChange(e)}
             required
-            minLength="6"
+            minLength="8"
           />
-        </div> 
+        </div>
         <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <p className="my-1">
@@ -58,4 +64,16 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);

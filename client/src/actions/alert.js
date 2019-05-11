@@ -11,7 +11,7 @@ export const setAlert = (msg, alertType, timeout = 5000) => dispatch => {
 
   setTimeout(
     () =>
-      //Remove alert after 5 seconds (5000ms)
+      //Remove alert after 5 seconds (5000ms)[default] or any passed in timeout
       dispatch({
         type: REMOVE_ALERT,
         payload: id

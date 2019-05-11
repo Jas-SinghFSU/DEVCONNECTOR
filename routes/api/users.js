@@ -1,44 +1,50 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const gravatar = require('gravatar');
-const { check, validationResult } = require('express-validator/check');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../../models/User');
-const config = require('config');
+const gravatar = require("gravatar");
+const { check, validationResult } = require("express-validator/check");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../../models/User");
+const config = require("config");
 
 // Used asnyc method await on items that return a promise instead of doing .then() etc...
 
 // @route   POST api/users
 // @desc    Register user
 // @access  Public
-router.post('/', [
-  check('name', 'Name is required')//Check that the name isn't empty
-    .not()
-    .isEmpty(),
-  check('email', 'Please include a valid email').isEmail(), //check that the email syntax is valid
-  check('password', 'Please enter a password with 8 or more characters').isLength({ min: 8 }) //check if password is atleast 8 digits
-],
+router.post(
+  "/",
+  [
+    check("name", "Name is required") //Check that the name isn't empty
+      .not()
+      .isEmpty(),
+    check("email", "Please include a valid email").isEmail(), //check that the email syntax is valid
+    check(
+      "password",
+      "Please enter a password with 8 or more characters"
+    ).isLength({ min: 8 }) //check if password is atleast 8 digits
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });  //if any checks fail, we get an array of errors
+      return res.status(400).json({ errors: errors.array() }); //if any checks fail, we get an array of errors
     }
 
     const { name, email, password } = req.body; //instead of doing req.body.name, etc...
     try {
-
       // See if user exists
       let user = await User.findOne({ email }); //assign user variable to a find query with param email
 
       if (user) {
-        return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "User already exists" }] });
       }
       // Get users gravatar
       const avatar = gravatar.url(email, {
-        s: '200', //default size
-        r: 'pg', //rating for explicity
-        d: 'mm' //default image if user gravatar doesn't exists
+        s: "200", //default size
+        r: "pg", //rating for explicity
+        d: "mm" //default image if user gravatar doesn't exists
       });
 
       // Encrypt the password
@@ -54,27 +60,27 @@ router.post('/', [
       await user.save();
 
       // Return jsonwebtoken
-      const payload = { //create payload
+      const payload = {
+        //create payload to pass into jwt to generate user token
         user: {
           id: user.id
         }
-      }
+      };
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        config.get("jwtSecret"),
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
           res.json({ token });
         }
       );
-    }
-    catch (err) {
+    } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send("Server error");
     }
-
-  });
+  }
+);
 
 module.exports = router;
