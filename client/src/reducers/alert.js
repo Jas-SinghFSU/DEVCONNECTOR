@@ -1,3 +1,4 @@
+//Responsible for holding the alert states data
 import { SET_ALERT, REMOVE_ALERT } from "../actions/types";
 const initialState = [];
 
