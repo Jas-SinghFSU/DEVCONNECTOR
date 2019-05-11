@@ -1,4 +1,4 @@
-//Responsible for holding the alert states data
+//Responsible for holding the alert states data. In this case, an alerts array
 import { SET_ALERT, REMOVE_ALERT } from "../actions/types";
 const initialState = [];
 

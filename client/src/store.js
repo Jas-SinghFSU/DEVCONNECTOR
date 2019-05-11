@@ -1,3 +1,4 @@
+//The store holds all the data from /reducers
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
