@@ -24,41 +24,41 @@ const Login = ({ login, isAuthenticated }) => {
 
   //Redirect if login is successful
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to='/dashboard' />;
   }
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign In</h1>
-      <p className="lead">
-        <i className="fas fa-user" /> Sign In To Your Account
+      <h1 className='large text-primary'>Sign In</h1>
+      <p className='lead'>
+        <i className='fas fa-user' /> Sign In To Your Account
       </p>
-      <form className="form" onSubmit={e => onSubmit(e)}>
-        <div className="form-group">
+      <form className='form' onSubmit={e => onSubmit(e)}>
+        <div className='form-group'>
           <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
+            type='email'
+            placeholder='Email Address'
+            name='email'
             value={email}
             onChange={e => onChange(e)}
             required
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="password"
-            placeholder="Password"
-            name="password"
+            type='password'
+            placeholder='Password'
+            name='password'
             value={password}
             onChange={e => onChange(e)}
             required
-            minLength="8"
+            minLength='8'
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Login" />
+        <input type='submit' className='btn btn-primary' value='Login' />
       </form>
-      <p className="my-1">
-        Don't have an account? <Link to="/register">Sign Up</Link>
+      <p className='my-1'>
+        Don't have an account? <Link to='/register'>Sign Up</Link>
       </p>
     </Fragment>
   );
