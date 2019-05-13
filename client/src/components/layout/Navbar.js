@@ -9,9 +9,15 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
   const authLinks = (
     <ul>
       <li>
-        <Link onClick={logout} to="#!">
-          <i className="fas fa-sign-out-alt" />{" "}
-          <span className="hide-sm">Logout</span>
+        <Link to='/dashboard'>
+          <i className='fas fa-user' />{" "}
+          <span className='hide-sm'>Dashboard</span>
+        </Link>
+      </li>
+      <li>
+        <Link onClick={logout} to='#!'>
+          <i className='fas fa-sign-out-alt' />{" "}
+          <span className='hide-sm'>Logout</span>
         </Link>
       </li>
     </ul>
@@ -21,21 +27,21 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to="#!">Developers</Link>
+        <Link to='#!'>Developers</Link>
       </li>
       <li>
-        <Link to="/register">Register</Link>
+        <Link to='/register'>Register</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link to='/login'>Login</Link>
       </li>
     </ul>
   );
   return (
-    <nav className="navbar bg-dark">
+    <nav className='navbar bg-dark'>
       <h1>
-        <Link to="/">
-          <i className="fas fa-code" /> DevConnector
+        <Link to='/'>
+          <i className='fas fa-code' /> DevConnector
         </Link>
       </h1>
       {/* If info is loaded (not loading) then display either authLinks or guestLinks, otherwise ignore*/}
