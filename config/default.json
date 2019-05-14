@@ -1,6 +1,6 @@
 {
-  "mongoURI": "mongodb+srv://jaskiratpal:Satnaam7083@devconnector-hhlwx.mongodb.net/test?retryWrites=true",
+  "mongoURI": "mongodb+srv://jaskiratpal:password123!@devconnector-hhlwx.mongodb.net/test?retryWrites=true",
   "jwtSecret": "mysecrettoken",
-  "githubClientId" : "0f7f8da29da2395f3e3c",
-  "githubSecret" : "3abca0704c7c4d27fefab18feee1ee8cf4be480d"
+  "githubClientId": "0f7f8da29da2395f3e3c",
+  "githubSecret": "3abca0704c7c4d27fefab18feee1ee8cf4be480d"
 }
