@@ -73,12 +73,12 @@ router.post(
     profileFields.social = {};
 
     profileFields.user = req.user.id;
-    if (company) profileFields.company = company;
-    if (website) profileFields.website = website;
-    if (location) profileFields.location = location;
+    profileFields.company = company;
+    profileFields.website = website;
+    profileFields.location = location;
     profileFields.bio = bio;
     if (status) profileFields.status = status;
-    if (githubusername) profileFields.githubusername = githubusername;
+    profileFields.githubusername = githubusername;
     if (skills) {
       profileFields.skills = skills.split(",").map(skills => skills.trim());
     }

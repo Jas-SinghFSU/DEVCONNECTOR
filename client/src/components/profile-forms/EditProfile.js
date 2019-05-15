@@ -45,7 +45,7 @@ const EditProfile = ({
       linkedin: loading || !profile.social ? "" : profile.social.linkedin,
       instagram: loading || !profile.social ? "" : profile.social.instagram
     });
-  }, [loading]); //Stop calling useEffect once loading is false, aka loaded
+  }, [loading, getCurrentProfile]); //Stop calling useEffect once loading is false, aka loaded
 
   const {
     company,
@@ -184,7 +184,7 @@ const EditProfile = ({
               <i className='fab fa-twitter fa-2x' />
               <input
                 type='text'
-                placeholder='Twitter URL'
+                placeholder='Please follow format: http://www.example.com/'
                 name='twitter'
                 value={twitter}
                 onChange={e => onChange(e)}
@@ -195,7 +195,7 @@ const EditProfile = ({
               <i className='fab fa-facebook fa-2x' />
               <input
                 type='text'
-                placeholder='Facebook URL'
+                placeholder='Please follow format: http://www.example.com/'
                 name='facebook'
                 value={facebook}
                 onChange={e => onChange(e)}
@@ -206,7 +206,7 @@ const EditProfile = ({
               <i className='fab fa-youtube fa-2x' />
               <input
                 type='text'
-                placeholder='YouTube URL'
+                placeholder='Please follow format: http://www.example.com/'
                 name='youtube'
                 value={youtube}
                 onChange={e => onChange(e)}
@@ -217,7 +217,7 @@ const EditProfile = ({
               <i className='fab fa-linkedin fa-2x' />
               <input
                 type='text'
-                placeholder='Linkedin URL'
+                placeholder='Please follow format: http://www.example.com/'
                 name='linkedin'
                 value={linkedin}
                 onChange={e => onChange(e)}
@@ -228,7 +228,7 @@ const EditProfile = ({
               <i className='fab fa-instagram fa-2x' />
               <input
                 type='text'
-                placeholder='Instagram URL'
+                placeholder='Please follow format: http://www.example.com/'
                 name='instagram'
                 value={instagram}
                 onChange={e => onChange(e)}
