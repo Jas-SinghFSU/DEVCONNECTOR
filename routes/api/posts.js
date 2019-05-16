@@ -218,7 +218,7 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
       return res.status(404).json({ msg: "Post  not found!" });
     }
 
-    //find for each comment, where the comment id is the requested comment id
+    //find from comments, where the comment id is the requested comment id
     const comment = await post.comments.find(
       comment => comment.id === req.params.comment_id
     );
@@ -234,14 +234,17 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
     }
 
     //get remove index
-    const removeIndex = post.comments
-      .map(comment => comment.user.toString())
-      .indexOf(req.user.id);
+    /*const removeIndex = post.comments
+      .map(comment => comment.id.toString())
+      .indexOf(req.params.comment_id);
 
-    if (removeIndex <= 0) {
-      return res.send(404).json({ msg: "Error: Post not found!" });
+    if (removeIndex < 0) {
+      return res.status(404).json({ msg: "Error: Comment not found!" });
     }
-    post.comments.splice(removeIndex, 1);
+    post.comments.splice(removeIndex, 1);*/
+
+    //Or instead of doing the above, we can just do
+    comment.remove();
 
     await post.save();
 
